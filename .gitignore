@@ -175,3 +175,6 @@ cython_debug/
 
 # VSCode cache
 .vscode
+
+# large files (stocks)
+sp500_stocks*
