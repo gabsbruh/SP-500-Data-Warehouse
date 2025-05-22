@@ -252,18 +252,6 @@
     "country": "United States"
   },
   {
-    "symbol": "GOOG",
-    "name": "Alphabet Inc.",
-    "sector": "Communication Services",
-    "industry": "Internet Content & Information",
-    "exchange": "NMS",
-    "city": "Mountain View",
-    "state": "CA",
-    "full_time_employees": 185719,
-    "website": "https://abc.xyz",
-    "country": "United States"
-  },
-  {
     "symbol": "AMZN",
     "name": "Amazon.com, Inc.",
     "sector": "Consumer Cyclical",
@@ -2424,18 +2412,6 @@
     "country": "United States"
   },
   {
-    "symbol": "FOX",
-    "name": "Fox Corporation",
-    "sector": "Communication Services",
-    "industry": "Entertainment",
-    "exchange": "NMS",
-    "city": "New York",
-    "state": "NY",
-    "full_time_employees": 10200,
-    "website": "https://www.foxcorporation.com",
-    "country": "United States"
-  },
-  {
     "symbol": "BEN",
     "name": "Franklin Resources, Inc.",
     "sector": "Financial Services",
@@ -4021,18 +3997,6 @@
   },
   {
     "symbol": "NWSA",
-    "name": "News Corporation",
-    "sector": "Communication Services",
-    "industry": "Entertainment",
-    "exchange": "NMS",
-    "city": "New York",
-    "state": "NY",
-    "full_time_employees": 23900,
-    "website": "https://www.newscorp.com",
-    "country": "United States"
-  },
-  {
-    "symbol": "NWS",
     "name": "News Corporation",
     "sector": "Communication Services",
     "industry": "Entertainment",
