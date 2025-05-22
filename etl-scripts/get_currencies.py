@@ -26,12 +26,12 @@ currency_data = []
 for date, row in combined.iterrows():
     currency_data.append({
         "currency_iso": "EUR",
-        "exchange_rate": round(row["USD_EUR"], 4),
+        "exchange_rate": round(1/row["USD_EUR"], 4),
         "time_id": date.strftime("%Y-%m-%d")
     })
     currency_data.append({
         "currency_iso": "PLN",
-        "exchange_rate": round(row["USD_PLN"], 4),
+        "exchange_rate": round(1/row["USD_PLN"], 4),
         "time_id": date.strftime("%Y-%m-%d")
     })
 
