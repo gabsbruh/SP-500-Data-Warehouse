@@ -1,0 +1,34 @@
+name: Daily ETL
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # every day at 08:00 UTC ( 10:00 CEST)
+  workflow_dispatch:
+
+jobs:
+  run-etl:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run ETL script
+      env:
+        db_user_aws: ${{ secrets.DB_USER_AWS }}
+        db_password_aws: ${{ secrets.DB_PASSWORD_AWS }}
+        db_host_aws: ${{ secrets.DB_HOST_AWS }}
+        db_port: ${{ secrets.DB_PORT }}
+        db_name_aws: ${{ secrets.DB_NAME_AWS }}
+        db_engine_aws: ${{ secrets.DB_ENGINE_AWS }}
+      run: python etl-scripts/main_etl.py
