@@ -1,0 +1,6 @@
+# requirements for etl pipeline
+yfinance
+pandas
+SQLAlchemy
+python-dotenv
+psycopg2-binary
