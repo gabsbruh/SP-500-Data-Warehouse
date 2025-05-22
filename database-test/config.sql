@@ -1,11 +1,11 @@
 GRANT CONNECT ON DATABASE snp500 TO readonly_user;
 GRANT USAGE ON SCHEMA snp TO readonly_user;
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO readonly_user;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public
+GRANT SELECT ON ALL TABLES IN SCHEMA snp TO readonly_user;
+ALTER DEFAULT PRIVILEGES IN SCHEMA snp
 GRANT SELECT ON TABLES TO readonly_user;
 
 SET ROLE readonly_user;
-SELECT * 
+SELECT COUNT(*) 
 FROM snp.stocks s
      INNER JOIN snp.companies c ON s.comp_ticker = c.comp_ticker
      INNER JOIN snp.times t ON s.time_id = t.time_id
