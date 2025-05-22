@@ -6,12 +6,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Load environment variables
-db_user = os.getenv("db_user")
-db_password = os.getenv("db_password")
-db_host = os.getenv("db_host")
+db_user = os.getenv("db_user_aws")
+db_password = os.getenv("db_password_aws")
+db_host = os.getenv("db_host_aws")
 db_port = os.getenv("db_port")
-db_name = os.getenv("db_name")
-db_engine = os.getenv("db_engine")
+db_name = os.getenv("db_name_aws")
+db_engine = os.getenv("db_engine_aws")
 
 # create string for connection to db
 db_string = (
