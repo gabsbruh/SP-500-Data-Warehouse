@@ -12,7 +12,9 @@ CREATE TABLE  IF NOT EXISTS snp.companies (
     industry VARCHAR(100) NOT NULL,
     exchange_code VARCHAR(4), -- trading venue, e.g. NYQ another 
     comp_city VARCHAR(50),
-    comp_state VARCHAR(2),
+    comp_state VARCHAR(3),
+    website VARCHAR(100),
+    country VARCHAR(30),
     comp_employees INTEGER CHECK (comp_employees >= 0)-- counted only full time employees
 );
 
@@ -80,11 +82,6 @@ CREATE TABLE IF NOT EXISTS snp.stocks (
    
     CONSTRAINT fk_stocks_times FOREIGN KEY (time_id)
         REFERENCES snp.times(time_id)
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-
-    CONSTRAINT fk_stocks_currency FOREIGN KEY (currency_iso, time_id) -- to get date, USER MUST PROVIDE 2 VALUES
-        REFERENCES snp.currencies(currency_iso, time_id)
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
 );
