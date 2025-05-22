@@ -1,8 +1,8 @@
 name: Daily ETL
-
+# data from 2 days before
 on:
   schedule:
-    - cron: '0 8 * * *'  # every day at 08:00 UTC ( 10:00 CEST)
+    - cron: '0 12 * * *'  # every day at 10:00 UTC ( 14:00 CEST)
   workflow_dispatch:
 
 jobs:

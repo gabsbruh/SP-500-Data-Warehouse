@@ -24,7 +24,7 @@ db_string = (
     f"{db_engine}://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 )
 db = create_engine(db_string)
-yesterday = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+yesterday = (datetime.today() - timedelta(days=2)).strftime("%Y-%m-%d")
 start_date = yesterday
 end_date = yesterday
 
