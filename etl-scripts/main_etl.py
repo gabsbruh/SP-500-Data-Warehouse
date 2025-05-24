@@ -15,6 +15,8 @@ log_dir = os.path.dirname(log_file_path)
 os.makedirs(log_dir, exist_ok=True)
 logging.basicConfig(filename=log_file_path, level=logging.ERROR)
 
+from dotenv import load_dotenv
+load_dotenv()
 # Load environment variables
 db_user = os.getenv("db_user_aws")
 db_password = os.getenv("db_password_aws")
@@ -26,9 +28,10 @@ db_string = (
     f"{db_engine}://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
 )
 db = create_engine(db_string)
-yesterday = (datetime.today() - timedelta(days=2)).strftime("%Y-%m-%d")
+yesterday = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+today = (datetime.today()).strftime("%Y-%m-%d")
 start_date = yesterday
-end_date = yesterday
+end_date = today
 
 # insert data about time
 query_times = """
@@ -58,14 +61,15 @@ currency_data = []
 for date, row in combined.iterrows():
     currency_data.append({
         "currency_iso": "EUR",
-        "exchange_rate": round(1/row["USD_EUR"], 4),
+        "exchange_rate": float(round(1/row["USD_EUR"], 4)),
         "time_id": date.strftime("%Y-%m-%d")
     })
     currency_data.append({
         "currency_iso": "PLN",
-        "exchange_rate": round(1/row["USD_PLN"], 4),
+        "exchange_rate": float(round(1/row["USD_PLN"], 4)),
         "time_id": date.strftime("%Y-%m-%d")
     })
+print(currency_data)  # Print first 5 records for verification
 # insert data about currency
 query = """
     INSERT INTO snp.currencies (
