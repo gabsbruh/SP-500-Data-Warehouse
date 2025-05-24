@@ -114,3 +114,33 @@ This table is the central fact table, storing daily stock performance data for e
 **Relationships:**
 * Connects to `snp.times` via `time_id` (many-to-one).
 * Connects to `snp.companies` via `comp_ticker` (many-to-one).
+
+```
+SP-500-Data-Warehouse
+├─ database-test
+│  ├─ config.sql
+│  └─ SnP500-DWH.sql
+├─ data_integration
+│  ├─ currencies.json
+│  ├─ sp500_companies.csv
+│  ├─ sp500_company_details.json
+│  └─ sp500_tickers.txt
+├─ etl-scripts
+│  ├─ get_companies_info.py
+│  ├─ get_currencies.py
+│  ├─ get_stocks.py
+│  ├─ main_etl.py
+│  ├─ snp500acr.py
+│  ├─ upload_stocks_to_db.py
+│  ├─ upload_to_db_companies.py
+│  ├─ upload_to_db_currencies.py
+│  └─ upload_to_db_times.sql
+├─ LICENSE
+├─ log
+├─ README.md
+├─ requirements.txt
+└─ schemas
+   ├─ dataflow_diagram.png
+   └─ erd_schema.png
+
+```
