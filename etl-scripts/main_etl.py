@@ -11,6 +11,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 tickers_file = os.path.join(BASE_DIR, "data_integration", "sp500_tickers.txt")
 log_file_path  = os.path.join(BASE_DIR, "log", 'etl_errors.log')
 # log any errors
+log_dir = os.path.dirname(log_file_path)
+os.makedirs(log_dir, exist_ok=True)
 logging.basicConfig(filename=log_file_path, level=logging.ERROR)
 
 # Load environment variables
