@@ -66,7 +66,7 @@ for date, row in combined.iterrows():
     })
     currency_data.append({
         "currency_iso": "PLN",
-        "exchange_rate": float(round(1/row["USD_PLN"], 4)),
+        "exchange_rate": float(round(1/row["USD_PLN"], 4),
         "time_id": date.strftime("%Y-%m-%d")
     })
 print(currency_data)  # Print first 5 records for verification
@@ -85,18 +85,13 @@ query = """
     SET
         exchange_rate = EXCLUDED.exchange_rate
 """
-with db.begin() as conn:
-    for curr in currency_data:
-        params = {
-            "currency_iso": curr["currency_iso"],
-            "exchange_rate": curr["exchange_rate"],
-            "time_id": curr["time_id"]
-        }
-        try:
-            conn.execute(text(query), params)
-        except Exception as e:
-            logging.error(f"Error for currency {curr['currency_iso']} on {curr['time_id']}: {e}")
-            continue
+for record in currency_data:
+    try:
+        with db.begin() as conn:
+            conn.execute(text(query), record)
+    except Exception as e:
+        logging.error(f"Error for currency {record['currency_iso']} on {record['time_id']}: {e}")
+
         
 
 
@@ -160,20 +155,10 @@ query_stocks = """
         close_price = EXCLUDED.close_price,
         volume = EXCLUDED.volume;
 """
-with db.begin() as conn:
-    for record in stocks:
-        params = {
-            "time_id": record["time_id"],
-            "comp_ticker": record["comp_ticker"],
-            "currency_iso": record.get("currency_iso", "USD"), 
-            "open_price": record["open_price"],
-            "high_price": record["high_price"],
-            "low_price": record["low_price"],
-            "close_price": record["close_price"],
-            "volume": record.get("volume", 0)
-        }
-        try:
-            conn.execute(text(query_stocks), params)
-        except Exception as e:
-            logging.error(f"Error for ticker {record['comp_ticker']}, time {record['time_id']}: {e}")
-            continue
+for record in stocks:
+    try:
+        with db.begin() as conn:
+            conn.execute(text(query_stocks), record)
+    except Exception as e:
+        logging.error(f"Error for ticker {record['comp_ticker']}, time {record['time_id']}: {e}")
+
