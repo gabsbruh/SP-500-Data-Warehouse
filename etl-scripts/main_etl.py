@@ -15,8 +15,6 @@ log_dir = os.path.dirname(log_file_path)
 os.makedirs(log_dir, exist_ok=True)
 logging.basicConfig(filename=log_file_path, level=logging.ERROR)
 
-from dotenv import load_dotenv
-load_dotenv()
 # Load environment variables
 db_user = os.getenv("db_user_aws")
 db_password = os.getenv("db_password_aws")
@@ -66,7 +64,7 @@ for date, row in combined.iterrows():
     })
     currency_data.append({
         "currency_iso": "PLN",
-        "exchange_rate": float(round(1/row["USD_PLN"], 4),
+        "exchange_rate": float(round(1/row["USD_PLN"], 4)),
         "time_id": date.strftime("%Y-%m-%d")
     })
 print(currency_data)  # Print first 5 records for verification
