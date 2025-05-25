@@ -15,8 +15,6 @@ log_dir = os.path.dirname(log_file_path)
 os.makedirs(log_dir, exist_ok=True)
 logging.basicConfig(filename=log_file_path, level=logging.ERROR)
 
-from dotenv import load_dotenv
-load_dotenv()
 # Load environment variables
 db_user = os.getenv("db_user_aws")
 db_password = os.getenv("db_password_aws")
@@ -44,6 +42,7 @@ query_times = """
 with db.begin() as conn:
     try:
         conn.execute(text(query_times), {"time_id": yesterday})
+        print('time inserted')
     except Exception as e:
         logging.error(f"Error inserting time {yesterday}: {e}")
 
@@ -62,14 +61,14 @@ for date, row in combined.iterrows():
     currency_data.append({
         "currency_iso": "EUR",
         "exchange_rate": float(round(1/row["USD_EUR"], 4)),
-        "time_id": date.strftime("%Y-%m-%d")
-    })
+        "time_id": date.strftime("%Y-%m-%d")})
     currency_data.append({
         "currency_iso": "PLN",
-        "exchange_rate": float(round(1/row["USD_PLN"], 4),
+        "exchange_rate": float(round(1/row["USD_PLN"], 4)),
         "time_id": date.strftime("%Y-%m-%d")
     })
 print(currency_data)  # Print first 5 records for verification
+
 # insert data about currency
 query = """
     INSERT INTO snp.currencies (
@@ -85,13 +84,17 @@ query = """
     SET
         exchange_rate = EXCLUDED.exchange_rate
 """
+yrec, norec = 0, 0
 for record in currency_data:
     try:
         with db.begin() as conn:
             conn.execute(text(query), record)
+            yrec += 1
+            
     except Exception as e:
+        norec += 1
         logging.error(f"Error for currency {record['currency_iso']} on {record['time_id']}: {e}")
-
+    print(f"currencies added successfully: {yrec}\n not added records: {norec}")
         
 
 
@@ -155,10 +158,13 @@ query_stocks = """
         close_price = EXCLUDED.close_price,
         volume = EXCLUDED.volume;
 """
+yrec, norec = 0, 0
 for record in stocks:
     try:
         with db.begin() as conn:
             conn.execute(text(query_stocks), record)
+            yrec += 1
     except Exception as e:
+        norec += 1
         logging.error(f"Error for ticker {record['comp_ticker']}, time {record['time_id']}: {e}")
-
+    print(f"stocks added successfully: {yrec}\n not added records: {norec}")
